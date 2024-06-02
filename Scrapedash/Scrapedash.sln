@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrapedash", "Scrapedash\Scrapedash.csproj", "{2EEB388F-5FBC-4204-A6F5-AE26BB585AAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModashClient", "ModashClient\ModashClient.csproj", "{75E4C124-6D99-4266-90B2-6DDEAAC98B2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2EEB388F-5FBC-4204-A6F5-AE26BB585AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EEB388F-5FBC-4204-A6F5-AE26BB585AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EEB388F-5FBC-4204-A6F5-AE26BB585AAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75E4C124-6D99-4266-90B2-6DDEAAC98B2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75E4C124-6D99-4266-90B2-6DDEAAC98B2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75E4C124-6D99-4266-90B2-6DDEAAC98B2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75E4C124-6D99-4266-90B2-6DDEAAC98B2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
