@@ -4,7 +4,7 @@ using System;
 
 namespace ModashClient.API {
 
-    public class ApiClient {
+    public class ApiClient : IDisposable {
 
         public HttpClient Client { get; private set; }
 
@@ -37,6 +37,11 @@ namespace ModashClient.API {
             catch(Exception) {
                 return result;
             }
+        }
+
+        public void Dispose() {
+            Client.Dispose();
+            GC.SuppressFinalize(this);
         }
 
     }
