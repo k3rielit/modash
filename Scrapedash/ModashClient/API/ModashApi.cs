@@ -1,11 +1,16 @@
-﻿namespace ModashClient.API {
+﻿using ModashClient.Configuration;
+using ModashClient.Models.User;
 
-    public class ModashApi : IDisposable {
+namespace ModashClient.API {
 
-        public ApiClient Api { get; private set; }
+    public class ModashApi(ModashAccount account) : IDisposable {
 
-        public ModashApi() {
-            Api = new ApiClient();
+        public ApiClient Api { get; private set; } = new ApiClient();
+        public ModashAccount Account { get; private set; } = account;
+        public string BaseUri { get; private set; } = "https://marketer.modash.io";
+
+        public async Task<ModashUser> GetUser() {
+            return await Api.Get<ModashUser>($"{BaseUri}/api/user", Account.Cookies) ?? new();
         }
 
         public void Dispose() {
