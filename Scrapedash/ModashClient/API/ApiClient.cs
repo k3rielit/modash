@@ -12,6 +12,14 @@ namespace ModashClient.API {
             Client = new HttpClient();
         }
 
+        public async Task<T?> Get<T>(string uri, string cookies, string? body = null) {
+            return await Request<T>(HttpMethod.Get, uri, cookies, body);
+        }
+
+        public async Task<T?> Post<T>(string uri, string cookies, string? body = null) {
+            return await Request<T>(HttpMethod.Post, uri, cookies, body);
+        }
+
         public async Task<T?> Request<T>(HttpMethod method, string uri, string cookies, string? body = null) {
             T? result = default;
             var request = body == null ? new HttpRequestMessage {
@@ -24,7 +32,7 @@ namespace ModashClient.API {
                 Method = method,
                 RequestUri = new Uri(uri),
                 Headers = {
-                    { "Cookies", cookies },
+                    { "Cookie", cookies },
                 },
                 Content = new StringContent(body),
             };
