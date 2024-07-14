@@ -14,7 +14,7 @@ namespace ModashClient.Scrape {
         public async Task InitAsync() {
             PlaywrightInstance = await Playwright.CreateAsync();
             BrowserInstance = await PlaywrightInstance.Chromium.LaunchAsync(new() {
-                Headless = true,
+                Headless = false,
             });
             BrowserContext = await BrowserInstance.NewContextAsync();
         }
@@ -38,10 +38,14 @@ namespace ModashClient.Scrape {
             await LoginButton.ClickAsync();
             // Wait for a logged in page, or fail after a while
             var discovery = page.Locator("h1", new() { HasTextString = "Discovery"}).First;
-            await discovery.WaitForAsync(new() {
-                Timeout = 10000,
-            });
-            if(discovery == null) return null;
+            try {
+                await discovery.WaitForAsync(new() {
+                    Timeout = 10000,
+                });
+            }
+            catch(Exception) {
+                return null;
+            }
             // Extract and combine cookies
             var cookies = await BrowserContext.CookiesAsync(new List<string>() { "https://marketer.modash.io" });
             return string.Join("; ", cookies.Select(cookie => $"{cookie.Name}={cookie.Value}"));

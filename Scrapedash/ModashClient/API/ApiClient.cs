@@ -26,16 +26,21 @@ namespace ModashClient.API {
                 Method = method,
                 RequestUri = new Uri(uri),
                 Headers = {
-                    { "Cookies", cookies },
+                    { "Accept", "application/json" },
+                    { "User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" },
                 },
             } : new HttpRequestMessage {
                 Method = method,
                 RequestUri = new Uri(uri),
                 Headers = {
-                    { "Cookie", cookies },
+                    { "Accept", "application/json" },
+                    { "User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" },
                 },
                 Content = new StringContent(body),
             };
+            if(cookies.Length > 0) {
+                request.Headers.Add("Cookie", cookies);
+            }
             try {
                 using var response = await Client.SendAsync(request);
                 response.EnsureSuccessStatusCode();

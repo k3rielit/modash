@@ -1,19 +1,20 @@
-﻿using ModashClient.Scrape;
+﻿using Microsoft.Playwright;
+using ModashClient.API;
+using ModashClient.Configuration;
+using ModashClient.Scrape;
 
 namespace Scrapedash {
 
     internal class Program {
 
         static void Main(string[] args) {
-            Task.Run(GetSession).GetAwaiter().GetResult();
-        }
-
-        public static async Task GetSession() {
-            var scraper = new ModashScraper();
-            await scraper.InitAsync();
-            var cookie = await scraper.LoginAsync("", "");
-            Console.WriteLine(cookie);
-            scraper.Dispose();
+            var account = ModashAccount.Load();
+            if(account.User.LoggedIn) {
+                Console.WriteLine($"{account.User.Id} {account.User.Name} ({account.User.Email})");
+            }
+            else {
+                Console.WriteLine("Authentication failed. Please check the account.json configuration file.");
+            }
         }
 
     }
