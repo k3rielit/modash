@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ModashClient.Models.Influencer {
 
-    public class InfluencerProfile {
+    public class InfluencerSearchResult {
 
         [JsonProperty("error")]
         public bool Error { get; set; } = true;
