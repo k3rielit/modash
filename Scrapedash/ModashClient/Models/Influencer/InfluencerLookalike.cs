@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModashClient.Models.Influencer {
 
@@ -21,6 +16,28 @@ namespace ModashClient.Models.Influencer {
 
         [JsonProperty("profileId")]
         public string ProfileId { get; set; } = string.Empty;
+
+        public CompactInfluencerProfile Compact() {
+            return new CompactInfluencerProfile {
+
+                Id = Id,
+                ProfileType = ProfileType,
+                ProfileId = ProfileId,
+
+                UserId = ProfileData.UserId,
+
+                EngagementRate = ProfileData.Profile.EngagementRate,
+                Engagements = ProfileData.Profile.Engagements,
+                Followers = ProfileData.Profile.Followers,
+                Fullname = ProfileData.Profile.Fullname,
+                Picture = ProfileData.Profile.Picture,
+                Url = ProfileData.Profile.Url,
+                Username = ProfileData.Profile.Username,
+                IsVerified = ProfileData.Profile.IsVerified,
+                IsPrivate = ProfileData.Profile.IsPrivate,
+
+            };
+        }
 
     }
 

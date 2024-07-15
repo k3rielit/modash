@@ -1,10 +1,8 @@
 ﻿using Microsoft.Playwright;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace ModashClient.Scrape {
 
-    public class ModashScraper : IDisposable {
+    public class WebsiteScraper : IDisposable {
 
         public Random RandomInstance { get; private set; } = new Random();
         public IPlaywright? PlaywrightInstance { get; private set; }
@@ -37,15 +35,13 @@ namespace ModashClient.Scrape {
             await Task.Delay(RandomInstance.Next(951, 1782));
             await LoginButton.ClickAsync();
             // Wait for a logged in page, or fail after a while
-            var discovery = page.Locator("h1", new() { HasTextString = "Discovery"}).First;
+            var discovery = page.Locator("h1", new() { HasTextString = "Discovery" }).First;
             try {
                 await discovery.WaitForAsync(new() {
                     Timeout = 10000,
                 });
             }
-            catch(Exception) {
-                return null;
-            }
+            catch(Exception) { }
             // Extract and combine cookies
             var cookies = await BrowserContext.CookiesAsync(new List<string>() { "https://marketer.modash.io" });
             return string.Join("; ", cookies.Select(cookie => $"{cookie.Name}={cookie.Value}"));

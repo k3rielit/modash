@@ -12,26 +12,15 @@ namespace Scrapedash {
         static void Main(string[] args) {
             // Initialize account
             var account = ModashAccount.Load();
-            if(account.User.LoggedIn) {
-                Console.WriteLine($"{account.User.Id} {account.User.Name} ({account.User.Email})");
-            }
-            else {
-                Console.WriteLine("Authentication failed. Please check the account.json configuration file.");
+            if(!account.User.LoggedIn) {
+                Console.WriteLine("Authentication failed. Please check the account.json configuration file.\nPress any key to exit.");
+                Console.ReadKey();
                 return;
             }
-            // Download a page
-            var search = new InfluencerSearch();
-            search.Filters.Influencer.Followers.Min = "0";
-            search.Filters.Influencer.Followers.Max = "1k";
-            var api = new ModashApi(account);
-            var searchResult = api.Discover(search);
-            api.Dispose();
-            if(!searchResult.Error) {
-                Console.WriteLine(JsonConvert.SerializeObject(searchResult, Formatting.Indented));
-            }
-            else {
-                Console.WriteLine($"[Api.Discover] Search failed with body:\n{JsonConvert.SerializeObject(search, Formatting.Indented)}");
-            }
+            // Interactive
+            var scraper = new ApiScraper(account);
+            scraper.Start();
+            scraper.Menu();
         }
 
     }

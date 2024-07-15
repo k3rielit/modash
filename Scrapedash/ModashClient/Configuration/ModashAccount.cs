@@ -60,9 +60,10 @@ namespace ModashClient.Configuration {
                 return;
             }
             // If the cookies aren't edible, try baking new ones.
-            var scraper = new ModashScraper();
+            var scraper = new WebsiteScraper();
             await scraper.InitAsync();
             Cookies = await scraper.LoginAsync(Email, Password) ?? string.Empty;
+            scraper.Dispose();
             api = new ModashApi(this);
             user = await api.GetUserAsync();
             api.Dispose();
